@@ -11,8 +11,6 @@ from yamlpath.wrappers import ConsolePrinter
 from yamlpath.exceptions import YAMLPathException
 from yamlpath.merger.exceptions import MergeException
 from yamlpath.merger import Merger, MergerConfig
-from urllib.request import urlopen
-from urllib.parse import urlparse
 
 
 def setup_logger():

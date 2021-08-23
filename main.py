@@ -132,11 +132,15 @@ if __name__ == '__main__':
         merger = setup_merger(log, base)
 
         for filepathPatch in filepathPatches:
+            log.info("Merging with {}".format(filepathPatch))
             patch = load_file(editor, filepathPatch)
             merger.merge_with(patch)
 
+        log.info("Writing output: {}".format(filepathOutput))
         merger.prepare_for_dump(editor, filepathOutput)
         write_output(editor, filepathOutput, merger.data)
+
+        log.info("YAML-Patch successfully finished patching {} into {} file".format(filepathBase, filepathOutput))
 
     except FileNotFoundError as ex:
         log.critical(ex, 1001)

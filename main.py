@@ -11,6 +11,8 @@ from yamlpath.wrappers import ConsolePrinter
 from yamlpath.exceptions import YAMLPathException
 from yamlpath.merger.exceptions import MergeException
 from yamlpath.merger import Merger, MergerConfig
+from urllib.request import urlopen
+from urllib.parse import urlparse
 
 
 def setup_logger():
@@ -119,16 +121,17 @@ if __name__ == '__main__':
     log = setup_logger()
     editor = setup_editor()
 
-    log.info("Reading yamlpatcher.yaml config file")
-    configFile = load_file(editor, "yamlpatcher.yaml")
-    config = setup_processor(log, configFile)
-
     try:
+        log.info("Reading yamlpatcher.yaml config file")
+        configFile = load_file(editor, "yamlpatcher.yaml")
+        config = setup_processor(log, configFile)
+
         filepathBase = load_base_filepath(config)
         filepathPatches = load_patch_filepaths(config)
         filepathOutput = load_output_filepath(config)
 
         base = load_file(editor, filepathBase)
+
         merger = setup_merger(log, base)
 
         for filepathPatch in filepathPatches:
@@ -143,8 +146,11 @@ if __name__ == '__main__':
         log.info("YAML-Patch successfully finished patching {} into {} file".format(filepathBase, filepathOutput))
 
     except FileNotFoundError as ex:
-        log.critical(ex, 1001)
+        log.debug(ex)
+        exit(1)
     except MergeException as ex:
-        log.critical(ex, 1002)
+        log.debug(ex)
+        exit(2)
     except YAMLPathException as yex:
-        log.critical(yex, 1003)
+        log.debug(yex)
+        exit(3)

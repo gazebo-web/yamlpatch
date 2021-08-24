@@ -45,4 +45,4 @@ Ignition YAML Patch uses [yamlpath](https://github.com/wwkimball/yamlpath) as it
 
 ## Licenses
 - `yamlpath` by William W. Kimball, Jr. (@wwkimball) - [ISC License](https://github.com/wwkimball/yamlpath/blob/master/LICENSE)
-- Ignition YAML Patch by Ignition Robotics - Apache License
+- Ignition YAML Patch by Ignition Robotics - [Apache License](https://gitlab.com/ignitionrobotics/web/yamlpatch/-/blob/main/LICENSE)

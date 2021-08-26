@@ -3,7 +3,7 @@
 Ignition YAML Patch is a tool that allows patching yaml config files.
 
 ## Installation
-In order to install Ignition YAML Patch, go to the `Releases` page and download the latest version.
+In order to install Ignition YAML Patch, go to the [Releases](https://gitlab.com/ignitionrobotics/web/yamlpatch/-/releases) page and download the latest version.
 
 `yamlpatch` needs to be placed in either `/usr/bin`, `/usr/local/bin` or correctly configured through the `PATH` variable.
 
@@ -26,10 +26,10 @@ patches:
 output: config.yaml
 ```
 
-Without this manifest, `yamlpatch` will not run. We suggest including this manifest in your project's root folder.
-
 If everything was properly configured, running `yamlpatch` in your project's root folder will produce the following output file:
 `config.yaml` that contains a base config from `base.yaml` but with all the patch files applied from the `patches` list.
+
+Without this manifest, `yamlpatch` will not run. We suggest including this manifest in your project's root folder.
 
 Feel free to try out `yamlpatch` with the example provided in this repository.
 

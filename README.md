@@ -26,7 +26,7 @@ patches:
 output: config.yaml
 ```
 
-Without this config file, `yamlpatch` will not run. We suggest including this manifest in your project's root folder.
+Without this manifest, `yamlpatch` will not run. We suggest including this manifest in your project's root folder.
 
 If everything was properly configured, running `yamlpatch` in your project's root folder will produce the following output file:
 `config.yaml` that contains a base config from `base.yaml` but with all the patch files applied from the `patches` list.

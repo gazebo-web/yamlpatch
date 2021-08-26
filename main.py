@@ -43,7 +43,7 @@ def setup_merger(log, base):
 
 def setup_processor(log, data):
     """
-    Set up a processor that allows reading yaml files (used for reading the yamlpatcher.yaml file)
+    Set up a processor that allows reading yaml files (used to read the yamlpatcher.yaml file)
     :param log: The logger instance used to print errors.
     :param data: The content of a file.
     :return: A Processor instance.
@@ -54,11 +54,11 @@ def setup_processor(log, data):
 def load_file(editor, filepath):
     """
     Loads a file located in the given filepath.
-    :param editor: An editor initialized by setup_editor.
+    :param editor: A yamlpath editor.
     :param filepath: The path of the file that needs to be opened.
     :return: The file content or an exception if the file does not exist.
     """
-    (data, ok) = Parsers.get_yaml_data(editor, log, filepath)
+    data, ok = Parsers.get_yaml_data(editor, log, filepath)
     if not ok:
         raise FileNotFoundError("File does not exist: " + filepath)
     return data
@@ -151,4 +151,6 @@ if __name__ == '__main__':
         exit(2)
     except YAMLPathException as yex:
         log.debug(yex)
-        exit(3)
+    except Exception as ex: 
+        log.debug(ex)
+        exit(4)

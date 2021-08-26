@@ -46,7 +46,7 @@ In order to contribute to Ignition YAML Patch, follow the steps described below:
 3. Tag Maintainers for reviews.
 
 ## References
-Ignition YAML Patch uses [yamlpath](https://github.com/wwkimball/yamlpath) as its core tool for merging yaml files, but it was adapted for our own use cases.
+Ignition YAML Patch uses [yamlpath](https://github.com/wwkimball/yamlpath) as its core tool for merging yaml files, we built our tool on top of it.
 
 ## Licenses
 - `yamlpath` by William W. Kimball, Jr. (@wwkimball) - [ISC License](https://github.com/wwkimball/yamlpath/blob/master/LICENSE)

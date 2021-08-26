@@ -71,9 +71,8 @@ def write_output(editor, filepath, data):
     :param filepath: The path of the file that needs to be opened.
     :param data: The content of a file.
     """
-    file = open(filepath, 'w')
-    editor.dump(data, file)
-    file.close()
+    with open(filepath, 'w') as file:
+        editor.dump(data, file)
 
 
 def load_base_filepath(config):

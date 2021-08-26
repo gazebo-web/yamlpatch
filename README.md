@@ -34,8 +34,8 @@ Without this manifest, `yamlpatch` will not run. We suggest including this manif
 Feel free to try out `yamlpatch` with the example provided in this repository.
 
 ```shell
-$ cd ./examples/local
-$ yamlpatch
+cd ./examples/local
+yamlpatch
 ```
 
 ## Contributing

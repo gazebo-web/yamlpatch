@@ -33,6 +33,11 @@ Without this manifest, `yamlpatch` will not run. We suggest including this manif
 
 Feel free to try out `yamlpatch` with the example provided in this repository.
 
+```shell
+$ cd ./examples/local
+$ yamlpatch
+```
+
 ## Contributing
 In order to contribute to Ignition YAML Patch, follow the steps described below:
 

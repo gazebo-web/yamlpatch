@@ -16,6 +16,7 @@ from yamlpath.merger import Merger, MergerConfig
 def setup_logger():
     """
     Set up a logger that prints information into the terminal.
+
     :return: A console printer instance.
     """
     args = SimpleNamespace(quiet=False, verbose=True, debug=False)
@@ -25,6 +26,7 @@ def setup_logger():
 def setup_editor():
     """
     Set up a YAML editor that is capable of parsing yaml files.
+
     :return: A YAML editor.
     """
     return Parsers.get_yaml_editor()
@@ -33,6 +35,7 @@ def setup_editor():
 def setup_merger(log, base):
     """
     Set up a merger that enables merging different patches with a base file.
+
     :param log: The logger instance used to print errors.
     :param base: The parsed base file that will be used during when applying the different patches.
     :return: A merger instance.
@@ -44,6 +47,7 @@ def setup_merger(log, base):
 def setup_processor(log, data):
     """
     Set up a processor that allows reading yaml files (used to read the yamlpatcher.yaml file)
+
     :param log: The logger instance used to print errors.
     :param data: The content of a file.
     :return: A Processor instance.
@@ -54,6 +58,7 @@ def setup_processor(log, data):
 def load_file(editor, filepath):
     """
     Loads a file located in the given filepath.
+
     :param editor: A yamlpath editor.
     :param filepath: The path of the file that needs to be opened.
     :return: The file content or an exception if the file does not exist.
@@ -67,6 +72,7 @@ def load_file(editor, filepath):
 def write_output(editor, filepath, data):
     """
     Writes data into a file that will be located in the given filepath.
+
     :param editor: An editor initialized by setup_editor.
     :param filepath: The path of the file that needs to be opened.
     :param data: The content of a file.
@@ -80,6 +86,7 @@ def load_base_filepath(config):
     Reads the `base` field from the yamlpatcher.yaml file and returns its value.
     If not value is defined, it returns `base.yaml`.
     If multiple base fields are defined, it returns the first field's value.
+
     :param config: The content of the config file.
     :return: The base filepath gotten from the base field.
     """
@@ -95,6 +102,7 @@ def load_base_filepath(config):
 def load_patch_filepaths(config):
     """
     Reads the `patches` field from the yamlpatcher.yaml file and returns its value.
+
     :param config: The content of the config file.
     :return: An array with the different patches file paths.
     """

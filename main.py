@@ -108,13 +108,17 @@ def load_patch_filepaths(config):
 def load_output_filepath(config):
     """
     Reads the `output` field from the yamlpatcher.yaml file and returns its value.
+    If not value is defined, it returns `output.yaml`.
+    If multiple base fields are defined, it returns the first field's value.
+
     :param config: The content of the config file.
     :return: The output filepath gotten from the output field.
     """
     fp = "output.yaml"
     nodes = config.get_nodes(YAMLPath("output"), mustexist=True)
-    for n in nodes:
-        fp = str(n)
+    if len(nodes) > 0:
+        fp = str(nodes[0])
+
     return fp
 
 

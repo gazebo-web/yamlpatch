@@ -79,13 +79,17 @@ def write_output(editor, filepath, data):
 def load_base_filepath(config):
     """
     Reads the `base` field from the yamlpatcher.yaml file and returns its value.
+    If not value is defined, it returns `base.yaml`.
+    If multiple base fields are defined, it returns the first field's value.
     :param config: The content of the config file.
     :return: The base filepath gotten from the base field.
     """
     fp = "base.yaml"
     nodes = config.get_nodes(YAMLPath("base"), mustexist=True)
-    for n in nodes:
-        fp = str(n)
+
+    if len(nodes) > 0:
+        fp = str(nodes[0])
+
     return fp
 
 

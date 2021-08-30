@@ -14,7 +14,7 @@ Docker image:
 
 ## Usage
 
-Ignition YAML Patch uses a manifest called `yamlpatcher.yaml` that allows configuring what YAML Patch needs to do:
+YAML Patch uses a manifest called `yamlpatcher.yaml` that allows configuring what YAML Patch needs to do:
 
 ```yaml
 base: base.yaml

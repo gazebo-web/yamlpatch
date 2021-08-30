@@ -1,5 +1,3 @@
-# Ignition YAMLPatch
-
 # YAML Patch is a yamlpath wrapper that allows patching yaml config files
 
 from types import SimpleNamespace

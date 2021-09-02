@@ -53,7 +53,7 @@ def setup_processor(log, data):
     return Processor(log, data)
 
 
-def load_file(editor, filepath):
+def load_file(editor, log, filepath):
     """
     Loads a file located in the given filepath.
 
@@ -91,8 +91,9 @@ def load_base_filepath(config):
     fp = "base.yaml"
     nodes = config.get_nodes(YAMLPath("base"), mustexist=True)
 
-    if len(nodes) > 0:
-        fp = str(nodes[0])
+    n = next(nodes, None)
+    if n is not None:
+        fp = n.node
 
     return fp
 
@@ -122,39 +123,41 @@ def load_output_filepath(config):
     """
     fp = "output.yaml"
     nodes = config.get_nodes(YAMLPath("output"), mustexist=True)
-    if len(nodes) > 0:
-        fp = str(nodes[0])
+
+    n = next(nodes, None)
+    if n is not None:
+        fp = n.node
 
     return fp
 
 
-if __name__ == '__main__':
+def run():
     log = setup_logger()
     editor = setup_editor()
 
     try:
         log.info("Reading yamlpatcher.yaml config file")
-        configFile = load_file(editor, "yamlpatcher.yaml")
-        config = setup_processor(log, configFile)
+        config_file = load_file(editor, log, "yamlpatcher.yaml")
+        config = setup_processor(log, config_file)
 
-        filepathBase = load_base_filepath(config)
-        filepathPatches = load_patch_filepaths(config)
-        filepathOutput = load_output_filepath(config)
+        filepath_base = load_base_filepath(config)
+        filepath_patches = load_patch_filepaths(config)
+        filepath_output = load_output_filepath(config)
 
-        base = load_file(editor, filepathBase)
+        base = load_file(editor, log, filepath_base)
 
         merger = setup_merger(log, base)
 
-        for filepathPatch in filepathPatches:
+        for filepathPatch in filepath_patches:
             log.info("Merging with {}".format(filepathPatch))
-            patch = load_file(editor, filepathPatch)
+            patch = load_file(editor, log, filepathPatch)
             merger.merge_with(patch)
 
-        log.info("Writing output: {}".format(filepathOutput))
-        merger.prepare_for_dump(editor, filepathOutput)
-        write_output(editor, filepathOutput, merger.data)
+        log.info("Writing output: {}".format(filepath_output))
+        merger.prepare_for_dump(editor, filepath_output)
+        write_output(editor, filepath_output, merger.data)
 
-        log.info("YAML-Patch successfully finished patching {} into {} file".format(filepathBase, filepathOutput))
+        log.info("YAML-Patch successfully finished patching {} into {} file".format(filepath_base, filepath_output))
 
     except FileNotFoundError as ex:
         log.debug(ex)
@@ -164,6 +167,10 @@ if __name__ == '__main__':
         exit(2)
     except YAMLPathException as yex:
         log.debug(yex)
-    except Exception as ex: 
+    except Exception as ex:
         log.debug(ex)
         exit(4)
+
+
+if __name__ == '__main__':
+    run()

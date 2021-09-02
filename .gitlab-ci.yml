@@ -1,3 +1,11 @@
+test:
+  stage: test
+  image: python:3.9
+  before_script:
+    - pip3 freeze > requirements.txt
+  script:
+    - python -m unittest
+
 bin:
   stage: build
   image: python:3.9

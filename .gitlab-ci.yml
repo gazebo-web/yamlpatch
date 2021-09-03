@@ -22,6 +22,8 @@ bin:
     paths:
       - dist/yamlpatch
     expire_in: 30 days
+  only:
+    - master
 
 docker:
   stage: build
@@ -34,12 +36,34 @@ docker:
     - docker:19.03.1-dind
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+  - docker pull $CI_REGISTRY_IMAGE:latest || true
+  - VERSION=$([ -n "${CI_COMMIT_TAG}" ] && echo "$CI_COMMIT_TAG" || echo "$CI_COMMIT_SHA")
+  - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$VERSION .
+  - docker push $CI_REGISTRY_IMAGE:$VERSION
+  after_script:
+    - docker logout $CI_REGISTRY
+  except:
+    - master
 
+docker:latest:
+  stage: build
+  image: docker:19.03.1
+  variables:
+    # Use TLS https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#tls-enabled
+    DOCKER_HOST: tcp://docker:2376
+    DOCKER_TLS_CERTDIR: "/certs"
+  services:
+    - docker:19.03.1-dind
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
   - docker pull $CI_REGISTRY_IMAGE:latest || true
   - VERSION=$([ -n "${CI_COMMIT_TAG}" ] && echo "$CI_COMMIT_TAG" || echo "$CI_COMMIT_SHA")
   - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$VERSION --tag $CI_REGISTRY_IMAGE:latest .
   - docker push $CI_REGISTRY_IMAGE:$VERSION
-
+  - docker push $CI_REGISTRY_IMAGE:latest
   after_script:
-    - "docker logout ${CI_REGISTRY}"
+    - docker logout $CI_REGISTRY
+  only:
+    - master

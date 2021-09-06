@@ -23,7 +23,7 @@ bin:
       - dist/yamlpatch
     expire_in: 30 days
   only:
-    - master
+    - main
 
 docker:
   stage: build
@@ -44,7 +44,7 @@ docker:
   after_script:
     - docker logout $CI_REGISTRY
   except:
-    - master
+    - main
 
 docker:latest:
   stage: build
@@ -64,4 +64,4 @@ docker:latest:
   after_script:
     - docker logout $CI_REGISTRY
   only:
-    - master
+    - main

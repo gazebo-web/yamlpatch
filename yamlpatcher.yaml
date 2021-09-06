@@ -1,0 +1,10 @@
+# Relative path to the base file.
+base: base_test.yaml
+
+# List of relative paths to the different patches that would be applied against the base file.
+patches:
+- patches/patch.yaml
+- patches/patch_2.yaml
+
+# Relative path to the output file
+output: config.yaml

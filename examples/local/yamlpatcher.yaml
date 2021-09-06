@@ -1,0 +1,7 @@
+base: base_test.yaml
+
+patches:
+- patches/patch.yaml
+- patches/patch_2.yaml
+
+output: config.yaml

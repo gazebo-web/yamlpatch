@@ -17,7 +17,7 @@ bin:
     - pip3 install pyinstaller
     - pip3 freeze > requirements.txt
   script:
-    - pyinstaller -y -n yamlpatch main.py
+    - pyinstaller --onefile -y -n yamlpatch main.py
   artifacts:
     paths:
       - dist/yamlpatch
